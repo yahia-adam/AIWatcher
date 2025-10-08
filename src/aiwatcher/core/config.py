@@ -42,92 +42,77 @@ SCRAPERS_CONFIG: Dict[str, Dict[str, Any]] = {
     'arxiv': {
         'start_urls': ['https://arxiv.org/list/cs.AI/recent'],
         'rate_limit': 1.0,
-        'max_articles': 50,
+        'max_articles': 5,
         'timeout': 10,
         'enabled': True,
         'source': 'arxiv_Blog'
     },
+    'papers_with_code': {
+        'start_urls': ['https://huggingface.co/papers/trending'],
+        'rate_limit': 0.5,
+        'max_articles': 5,
+        'timeout': 15,
+        'enabled': True,
+        'source': 'Paper_with_code'
+    },
     'google_blog': {
         'start_urls': ['https://research.google/blog/label/generative-ai/'],
         'rate_limit': 2.0,
-        'max_articles': 20,
+        'max_articles': 5,
         'timeout': 10,
         'enabled': True,
         'source': 'Google_AI_Blog'
+    },
+    'huggingface': {
+        'start_urls': ['https://huggingface.co/blog'],
+        'rate_limit': 1.0,
+        'max_articles': 5,
+        'timeout': 10,
+        'enabled': True,
+        'source': 'huggingface'
+    },
+    'mit_news': {
+        'base_url': ['https://news.mit.edu/topic/artificial-intelligence2'],
+        'rate_limit': 2.0,
+        'max_articles': 5,
+        'timeout': 10,
+        'enabled': True,
+        'source': 'MIT_News'
+    },
+
+    'berkeley_ai': {
+        'base_url': 'https://bair.berkeley.edu/blog',
+        'rate_limit': 1.0,
+        'max_articles': 15,
+        'timeout': 5,
+        'enabled': True,
+        'source': 'Berkeley_AI'
+    },
+
+    'meta_ai': {
+        'base_url': ['https://research.facebook.com/blog/#all-the-latest--blog---'],
+        'rate_limit': 1.0,
+        'max_articles': 15,
+        'timeout': 10,
+        'enabled': False,
+        'source': 'Meta_AI'
+    },
+
+    'stanford_hai': {
+        'base_url': ['https://hai.stanford.edu/research/publications'],
+        'rate_limit': 1.5,
+        'max_articles': 10,
+        'timeout': 10,
+        'enabled': False,
+        'source': 'Standford_HAI'
     },
     'openai_blog': {
         'start_urls': ['https://openai.com/research/index/'],
         'rate_limit': 1.5,
         'max_articles': 15,
         'timeout': 10,
-        'enabled': True,
+        'enabled': False,
         'source': 'OpenAI_News'
-    },
-    'huggingface': {
-        'start_urls': ['https://huggingface.co/blog'],
-        'rate_limit': 1.0,
-        'max_articles': 2,
-        'timeout': 10,
-        'enabled': True,
-        'source': 'huggingface'
-    },
-    'papers_with_code': {
-        'start_urls': ['https://huggingface.co/papers/trending'],
-        'rate_limit': 0.5,
-        'max_articles': 30,
-        'timeout': 15,
-        'enabled': True,
-        'source': 'Paper_with_code'
-    },
-    'towards_datascience': {
-        'base_url': 'https://towardsdatascience.com',
-        'rate_limit': 2.0,  # Plus respectueux pour Medium
-        'max_articles': 20,
-        'timeout': 15,
-        'enabled': False  # Désactivé par défaut (plus complexe)
-    },
-    'venturebeat': {
-        'base_url': 'https://venturebeat.com/ai',
-        'rate_limit': 1.5,
-        'max_articles': 15,
-        'timeout': 10,
-        'enabled': True
-    },
-    'meta_ai': {
-        'base_url': 'https://ai.meta.com/blog',
-        'rate_limit': 1.0,
-        'max_articles': 15,
-        'timeout': 10,
-        'enabled': True
-    },
-    'reddit_ml': {
-        'base_url': 'https://www.reddit.com/r/MachineLearning',
-        'api_url': 'https://www.reddit.com/r/MachineLearning/hot.json',
-        'rate_limit': 3.0,  # Reddit est strict
-        'max_articles': 25,
-        'timeout': 10,
-        'enabled': False  # Nécessite API key Reddit
-    },
-    'mit_news': {
-        'base_url': 'https://news.mit.edu/topic/artificial-intelligence2',
-        'rate_limit': 2.0,
-        'max_articles': 10,
-        'timeout': 10,
-        'enabled': True
-    },
-    'stanford_hai': {
-        'base_url': 'https://hai.stanford.edu/news',
-        'rate_limit': 1.5,
-        'max_articles': 10,
-        'timeout': 10,
-        'enabled': True
-    },
-    'berkeley_ai': {
-        'base_url': 'https://bair.berkeley.edu/blog',
-        'rate_limit': 1.0,
-        'max_articles': 15,
-        'timeout': 10,
-        'enabled': True
     }
 }
 

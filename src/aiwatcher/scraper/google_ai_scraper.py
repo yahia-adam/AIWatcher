@@ -5,7 +5,7 @@ from aiwatcher.core.config import SCRAPERS_CONFIG
 from aiwatcher.core.article import Article
 from bs4 import BeautifulSoup
 
-class GoogleScraper(scrapy.Spider):
+class GoogleBlogScraper(scrapy.Spider):
     name = name = SCRAPERS_CONFIG['google_blog']['source'] + "_scraper"
     start_urls = SCRAPERS_CONFIG['google_blog'].get('start_urls', ['https://research.google/blog/label/generative-ai/'])
     articles: List[Article] = []
@@ -73,10 +73,10 @@ if __name__ == "__main__":
     from scrapy.crawler import CrawlerProcess
 
     process = CrawlerProcess()
-    process.crawl(GoogleScraper)
+    process.crawl(GoogleBlogScraper)
     process.start()
 
     with open('data/raw/google_ai_articles.json', 'w') as f:
         import json
-        json.dump(GoogleScraper.articles, f, indent=4)
-        print(f"Saved {len(GoogleScraper.articles)} articles to google_ai_articles.json")
+        json.dump(GoogleBlogScraper.articles, f, indent=4)
+        print(f"Saved {len(GoogleBlogScraper.articles)} articles to google_ai_articles.json")

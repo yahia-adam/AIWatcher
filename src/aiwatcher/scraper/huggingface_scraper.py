@@ -5,8 +5,7 @@ from aiwatcher.core.article import Article
 from bs4 import BeautifulSoup
 import requests
 
-
-class HuggingfaceScraper(scrapy.Spider):
+class HuggingFaceScraper(scrapy.Spider):
     name = name = SCRAPERS_CONFIG['huggingface']['source'] + "_scraper"
     start_urls = SCRAPERS_CONFIG['huggingface'].get('start_urls', ['https://huggingface.co/blog'])
     articles: List[Article] = []
@@ -20,7 +19,7 @@ class HuggingfaceScraper(scrapy.Spider):
             'Upgrade-Insecure-Requests': '1',
         }
     }
-    
+
     def __init__(self,
         max_articles: int = SCRAPERS_CONFIG['huggingface']['max_articles'],
         source: str = SCRAPERS_CONFIG['huggingface'].get('source', 'Google AI Blog'),
@@ -36,29 +35,17 @@ class HuggingfaceScraper(scrapy.Spider):
         self.enabled = enabled
 
     def parse(self, response):
-        # Sélectionner le container principal
         container = response.css('div.grid.grid-cols-1.gap-12.pt-8.lg\:grid-cols-2')
         all_articles = container.css('a.flex.lg\:col-span-1')
 
         for article in all_articles:
-            # Extraire le titre
             title = article.css('h2.font-serif.font-semibold.group-hover\:underline.text-xl::text').get()
-            
-            # Extraire l'URL
             url = article.css('::attr(href)').get()
-            
-            # Extraire l'image
             image = f"https://huggingface.co{article.css('img::attr(src)').get()}"
-            
-            # Extraire l'auteur
             author = article.css('a.hover\:underline::text').get()
-            
             date = article.css('span.truncate::text').get()
-            
             content = BeautifulSoup(requests.get(response.urljoin(url), timeout=self.timeout).text, 'html.parser').get_text(separator=' ', strip=True)
-            
             self.articles.append(Article(title=title, link=response.urljoin(url) if url else None, date=date, keywords=[], source=self.source, content=content, img=image, authors=[author] if author else []).to_dict())
-            
             if len(self.articles) >= self.max_articles:
                 return
 
@@ -94,10 +81,10 @@ if __name__ == "__main__":
         }
     )
     
-    process.crawl(HuggingfaceScraper)
+    process.crawl(HuggingFaceScraper)
     process.start()
 
     with open('data/raw/huggingface_ai_articles.json', 'w') as f:
         import json
-        json.dump(HuggingfaceScraper.articles, f, indent=4)
-        print(f"Saved {len(HuggingfaceScraper.articles)} articles to huggingface_ai_articles.json")
+        json.dump(HuggingFaceScraper.articles, f, indent=4)
+        print(f"Saved {len(HuggingFaceScraper.articles)} articles to huggingface_ai_articles.json")

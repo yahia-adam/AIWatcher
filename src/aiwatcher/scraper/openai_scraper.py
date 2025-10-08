@@ -1,7 +1,5 @@
 from typing import List
 import scrapy
-import requests
-from bs4 import BeautifulSoup
 from aiwatcher.core.config import SCRAPERS_CONFIG
 from aiwatcher.core.article import Article
 
