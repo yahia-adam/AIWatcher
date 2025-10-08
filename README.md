@@ -1,32 +1,49 @@
 # AIWatcher - Architecture du projet
 
 ## **AIWatcher**
-**Pitch** : Un scraper intelligent qui collecte les derniers articles sur l’intelligence artificielle (recherches, actualités, innovations), les résume automatiquement, détecte les entités clés (NER) comme auteurs, laboratoires et modèles, puis expose le tout via une API prête pour la production.
-(Stack : Python, BeautifulSoup, Hugging Face, FastAPI, Docker)
-| Jour | Objectifs / Tâches | 📚 Concepts à réviser | 🔗 Ressources rapides | 🎯 Livrable |
-|------|--------------------|----------------------|-----------------------|-------------|
-| 1 | Scraper articles tech/cyber + stocker en PostgreSQL | HTTP, HTML parsing, JSON vs SQL | [BeautifulSoup Doc](https://www.crummy.com/software/BeautifulSoup/bs4/doc/), [SQLAlchemy Quickstart](https://docs.sqlalchemy.org/en/20/orm/quickstart.html) | Script scraping + stockage DB |
-| 2 | Nettoyage texte & tokenization | Tokenization (BPE/WordPiece), lemmatisation, stopwords | [HF Tokenizers](https://huggingface.co/docs/tokenizers/index) | Script preprocessing |
-| 3 | Résumé + NER | Seq2Seq, Transformers, Attention | [BART Summarization](https://huggingface.co/transformers/task_summary.html), [NER HF](https://huggingface.co/course/chapter7/3?fw=pt) | Script résumé + NER |
-| 4 | API FastAPI pour résumé + NER | REST, Swagger/OpenAPI | [FastAPI Docs](https://fastapi.tiangolo.com/) | API fonctionnelle |
-| 5 | Dockerisation + CI/CD GitHub Actions | Dockerfile, workflow basique | [Docker Guide](https://docs.docker.com/get-started/), [GitHub Actions](https://docs.github.com/en/actions) | Image Docker + CI/CD |
-| 6 | Tests & optimisation | Batch processing, lazy loading | [Profiling Python](https://docs.python.org/3/library/profile.html) | Benchmarks API |
-| 7 | Documentation | Structuration README | [Readme Best Practices](https://www.makeareadme.com/) | README + démo vidéo |
 
----
+**Pitch :** Un scraper intelligent qui collecte les derniers articles sur l’intelligence artificielle (recherches, actualités, innovations), les résume automatiquement, détecte les entités clés (NER) comme auteurs, laboratoires et modèles, puis expose le tout via une API prête pour la production.
+*(Stack : Python, BeautifulSoup, Hugging Face, FastAPI, Docker)*
 
+| Jour | Objectifs / Tâches                                                       | 📚 Concepts à réviser                                  | 🔗 Ressources rapides                                                                                                                                       | 🎯 Livrable                   |
+| ---- | ------------------------------------------------------------------------ | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| 1    | Scraper articles IA (blogs, revues, sites tech) + stockage en PostgreSQL | HTTP, HTML parsing, JSON vs SQL                        | [BeautifulSoup Doc](https://www.crummy.com/software/BeautifulSoup/bs4/doc/), [SQLAlchemy Quickstart](https://docs.sqlalchemy.org/en/20/orm/quickstart.html) | Script scraping + stockage DB |
+| 2    | Nettoyage texte & tokenization                                           | Tokenization (BPE/WordPiece), lemmatisation, stopwords | [HF Tokenizers](https://huggingface.co/docs/tokenizers/index)                                                                                               | Script preprocessing          |
+| 3    | Résumé + NER ciblé IA                                                    | Seq2Seq, Transformers, Attention                       | [BART Summarization](https://huggingface.co/transformers/task_summary.html), [NER HF](https://huggingface.co/course/chapter7/3?fw=pt)                       | Script résumé + NER           |
+| 4    | API FastAPI pour résumé + NER                                            | REST, Swagger/OpenAPI                                  | [FastAPI Docs](https://fastapi.tiangolo.com/)                                                                                                               | API fonctionnelle             |
+| 5    | Dockerisation + CI/CD GitHub Actions                                     | Dockerfile, workflow basique                           | [Docker Guide](https://docs.docker.com/get-started/), [GitHub Actions](https://docs.github.com/en/actions)                                                  | Image Docker + CI/CD          |
+| 6    | Tests & optimisation                                                     | Batch processing, lazy loading                         | [Profiling Python](https://docs.python.org/3/library/profile.html)                                                                                          | Benchmarks API                |
+| 7    | Documentation                                                            | Structuration README                                   | [Readme Best Practices](https://www.makeareadme.com/)                                                                                                       | README + démo vidéo           |
 
 ## 📁 Structure des dossiers et fichiers
 
-```
+```md
 aiwatcher/
 ├── 📁 src/
 │   ├── 📁 scraper/
-│   │   ├── __init__.py
-│   │   ├── base_scraper.py          # Classe abstraite pour scrapers
-│   │   ├── tech_scraper.py          # Scraper articles tech/AI
-│   │   ├── cyber_scraper.py         # Scraper actualités cyber
-│   │   └── scraper_factory.py       # Factory pattern pour scrapers
+│   │   ├── __init__.py                        # Initialisation du module scraper
+│   │   ├── models.py                          # Classes dédiées pour stocker les données scrapées
+│   │   ├── base_scraper.py                    # Classe abstraite pour tous les scrapers
+│   │   ├── arxiv_scraper.py                   # Scraper ArXiv (papers IA)
+│   │   ├── google_ai_scraper.py               # Scraper Google AI Blog
+│   │   ├── openai_scraper.py                  # Scraper OpenAI Blog
+│   │   ├── huggingface_scraper.py             # Scraper Hugging Face Blog
+│   │   ├── papers_with_code_scraper.py        # Scraper Papers With Code
+│   │   ├── towards_datascience_scraper.py     # Scraper Towards Data Science
+│   │   ├── venturebeat_scraper.py             # Scraper VentureBeat AI
+│   │   ├── meta_ai_scraper.py                 # Scraper Meta AI Blog
+│   │   ├── reddit_ml_scraper.py               # Scraper Reddit r/MachineLearning
+│   │   ├── mit_news_scraper.py                # Scraper MIT News AI
+│   │   ├── stanford_hai_scraper.py            # Scraper Stanford HAI
+│   │   ├── berkeley_ai_scraper.py             # Scraper Berkeley AI Research
+│   │   ├── scraper_factory.py                 # Factory pattern pour créer scrapers
+│   │   ├── scraper_config.py                  # Configuration des scrapers
+│   │   └── utils/
+│   │       ├── __init__.py
+│   │       ├── html_parser.py                 # Utilitaires parsing HTML
+│   │       ├── rate_limiter.py                # Gestion rate limiting
+│   │       ├── user_agents.py                 # User agents rotation
+│   │       └── validators.py                  # Validation des données
 │   │
 │   ├── 📁 database/
 │   │   ├── __init__.py
@@ -159,16 +176,19 @@ aiwatcher/
 ## 🏗️ Architecture logicielle
 
 ### **Couche de données**
+
 - **PostgreSQL** : Stockage articles, résumés, entités
 - **Redis** : Cache modèles IA et résultats
 - **Système de fichiers** : Modèles HuggingFace en local
 
 ### **Couche service**
+
 - **Scraper Layer** : Collecte multi-sources avec factory pattern
 - **AI Processing Layer** : Pipeline résumé + NER avec optimisations
 - **API Layer** : FastAPI avec documentation automatique
 
 ### **Couche infrastructure**
+
 - **Docker** : Conteneurisation application + dépendances
 - **CI/CD** : Tests automatisés + déploiement
 - **Monitoring** : Métriques Prometheus + dashboards Grafana
