@@ -79,7 +79,6 @@ SCRAPERS_CONFIG: Dict[str, Dict[str, Any]] = {
         'enabled': True,
         'source': 'MIT_News'
     },
-
     'berkeley_ai': {
         'base_url': 'https://bair.berkeley.edu/blog',
         'rate_limit': 1.0,

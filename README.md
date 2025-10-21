@@ -3,7 +3,7 @@
 ## **AIWatcher**
 
 **Pitch :** Un scraper intelligent qui collecte les derniers articles sur l’intelligence artificielle (recherches, actualités, innovations), les résume automatiquement, détecte les entités clés (NER) comme auteurs, laboratoires et modèles, puis expose le tout via une API prête pour la production.
-*(Stack : Python, BeautifulSoup, Hugging Face, FastAPI, Docker)*
+*(Stack : Python, scrapy, Hugging Face, FastAPI, Docker)*
 
 | Jour | Objectifs / Tâches                                                       | 📚 Concepts à réviser                                  | 🔗 Ressources rapides                                                                                                                                       | 🎯 Livrable                   |
 | ---- | ------------------------------------------------------------------------ | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
